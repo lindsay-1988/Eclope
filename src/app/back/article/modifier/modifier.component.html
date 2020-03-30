@@ -1,0 +1,68 @@
+<h2 class="mt-3">Modifier un article</h2>
+
+
+<!-- Contrôle de formulaire -->
+<form #f="ngForm" >
+  <div class="form-group">
+      <label for="titre">Titre :</label>
+      <!-- le champ doit avoir min 3 caractères et max 255 -->
+      <div>
+
+      <input
+          type="text"
+          name="titre"
+          class="form-control"
+          ngModel
+          #titre="ngModel"
+          required
+          minlength="3"
+          maxlength="255"
+          [(ngModel)]="titre_input"
+      >
+
+      <!-- Messages en cas d'erreurs -->
+      <div class="alert alert-danger" *ngIf="titre.touched && !titre.valid">
+          <p *ngIf="titre.errors.required">Veuillez compléter le champ titre</p>
+          <p *ngIf="titre.errors.minlength">Le champ titre doit avoir 3 caractères au minimum</p>
+          <p *ngIf="titre.errors.maxlength">Le champ titre doit avoir 255 caractères au maximum</p>
+          <p *ngIf="titre.errors.pattern">Le champ titre n'est pas conforme</p>
+      </div>
+    </div>
+  </div>
+
+      <!-- le champ contenu réalise les même test que pour le champ titre-->
+  <div class="form-group">
+      <label for="contenu">Contenu :</label> <br>
+      <textarea
+          name="contenu"
+          class="form-control"
+          ngModel
+          #contenu="ngModel"
+          required
+          minlength="3"
+          maxlength="255"
+          [(ngModel)]="contenu_input"
+      ></textarea>
+
+      <!-- Messages en cas d'erreurs -->
+      <div class="alert alert-danger" *ngIf="contenu.touched && !contenu.valid">
+          <p *ngIf="contenu.errors.required">Veuillez compléter le champ contenu</p>
+          <p *ngIf="contenu.errors.minlength">Le champ contenu doit avoir 3 caractères au minimum</p>
+          <p *ngIf="contenu.errors.maxlength">Le champ contenu doit avoir 255 caractères au maximum</p>
+      </div>
+  </div>
+  <!-- Bouton pour valider reste invalide si tout les champs ne sont pas correct -->
+  <div class="form-group">
+      <input type="submit" class="btn btn-primary"  [disabled]="!f.valid" value="Modifier">
+  </div>
+
+  <div>
+    <a routerLink = "">Retour à la liste</a>
+  </div>
+
+  <!-- Message si tout est ok -->
+  <div class="alert alert-success" *ngIf="success" >
+    Votre demande d'ajout à bien été valider!
+  </div>
+</form>
+
